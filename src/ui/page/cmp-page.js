@@ -1,55 +1,46 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import hardtack from 'hardtack'
+import useGlobal from '../../store'
 import Pokemon from '../pokemon/cmp-pokemon'
 import Search from '../search/cmp-search'
 
-class Page extends Component {
-  state = {
+const Page = () => {
+  const [globalState, globalActions] = useGlobal()
+  const [localState, localSetState] = useState({
     searchString: '',
     pokemonsIds: [],
     error: null
-  }
+  })
+  const { searchString, pokemonsIds, error } = localState
+  const { collection, isFetched } = globalState.pokemons
 
-  componentDidMount() {
-    this.props.getPokemons().then(action => {
-      if (action.error) {
-        return this.setState({
-          error: action.payload.message
-        })
-      }
+  useEffect(() => {
+    globalActions.getPokemons()
+  }, [])
 
-      const searchString = hardtack.get('searchString')
-      const { collection } = this.props
-
+  useEffect(
+    () => {
       if (!searchString) {
-        return this.setState({
+        localSetState({
+          ...localState,
           pokemonsIds: Object.keys(collection)
         })
       }
+    },
+    [collection]
+  )
 
-      const pokemonsIds = Object.keys(collection).filter(pokemonId => {
-        const pokemon = collection[pokemonId]
-
-        return pokemon.name.includes(searchString)
-      })
-
-      this.setState({
-        pokemonsIds,
-        searchString
-      })
-    })
-  }
-
-  handleSearch = event => {
+  const handleSearch = event => {
     const value = event.currentTarget.value.toLowerCase().trim()
-    const { collection } = this.props
+    const { collection } = globalState
 
     hardtack.set('searchString', value, {
       maxAge: '31536000'
     })
 
     if (value === '') {
-      return this.setState({
+      return localSetState({
+        ...localState,
         pokemonsIds: Object.keys(collection),
         searchString: value
       })
@@ -61,40 +52,32 @@ class Page extends Component {
       return pokemon.name.includes(value)
     })
 
-    this.setState({
+    localSetState({
+      ...localState,
       pokemonsIds,
       searchString: value
     })
   }
 
-  render() {
-    const { searchString, pokemonsIds, error } = this.state
-    const { collection, isFetched } = this.props
-
-    const pokemons = pokemonsIds.map(pokemonId => {
-      const pokemon = collection[pokemonId]
-
-      return (
-        <li className="pokemons__item" key={pokemon.id}>
-          <Pokemon pokemon={pokemon} />
-        </li>
-      )
-    })
+  const pokemons = pokemonsIds.map(pokemonId => {
+    const pokemon = collection[pokemonId]
 
     return (
-      <div className="page">
-        {error && <div className="page__error">{error}</div>}
-        <div className="page__search">
-          <Search onChange={this.handleSearch} value={searchString} />
-        </div>
-        {isFetched ? (
-          <p>Loading...</p>
-        ) : (
-          <ul className="pokemons">{pokemons}</ul>
-        )}
-      </div>
+      <li className="pokemons__item" key={pokemon.id}>
+        <Pokemon pokemon={pokemon} />
+      </li>
     )
-  }
+  })
+
+  return (
+    <div className="page">
+      {error && <div className="page__error">{error}</div>}
+      <div className="page__search">
+        <Search onChange={handleSearch} value={searchString} />
+      </div>
+      {isFetched ? <p>Loading...</p> : <ul className="pokemons">{pokemons}</ul>}
+    </div>
+  )
 }
 
 export default Page

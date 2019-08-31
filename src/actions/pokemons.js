@@ -1,21 +1,26 @@
-import { RSAA } from 'redux-api-middleware'
+import requester from '../resources/requester'
 
-export const GET_POKEMONS_REQUEST = 'GET_POKEMONS_REQUEST'
-export const GET_POKEMONS_SUCCESS = 'GET_POKEMONS_SUCCESS'
-export const GET_POKEMONS_FAILURE = 'GET_POKEMONS_FAILURE'
+export const setPokemons = (store, newPokemons) => {
+  const pokemons = {
+    ...store.state.pokemons,
+    collection: newPokemons.reduce((accumulator, item) => {
+      const { url } = item
+      const id = url.substring(34, url.length - 1)
 
-export const getPokemons = (options = {}) => dispatch => {
-  const { limit = 784 } = options
+      return {
+        ...accumulator,
+        [id]: {
+          id,
+          ...item
+        }
+      }
+    }, {})
+  }
+  store.setState({ ...store.state, pokemons })
+}
 
-  return dispatch({
-    [RSAA]: {
-      endpoint: `https://pokeapi.co/api/v2/pokemon/?limit=${limit}`,
-      method: 'GET',
-      types: [
-        'GET_POKEMONS_REQUEST',
-        'GET_POKEMONS_SUCCESS',
-        'GET_POKEMONS_FAILURE'
-      ]
-    }
-  })
+export const getPokemons = async store => {
+  const limit = 784
+  const [error, response] = await requester('GET', `pokemon/?limit=${limit}`)
+  setPokemons(store, response.data.results)
 }
