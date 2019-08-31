@@ -14,7 +14,8 @@ export const setPokemons = (store, newPokemons) => {
           ...item
         }
       }
-    }, {})
+    }, {}),
+    isFetched: true
   }
   store.setState({ ...store.state, pokemons })
 }

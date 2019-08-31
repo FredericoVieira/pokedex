@@ -75,7 +75,7 @@ const Page = () => {
       <div className="page__search">
         <Search onChange={handleSearch} value={searchString} />
       </div>
-      {isFetched ? <p>Loading...</p> : <ul className="pokemons">{pokemons}</ul>}
+      {isFetched ? <ul className="pokemons">{pokemons}</ul> : <p>Loading...</p>}
     </div>
   )
 }
