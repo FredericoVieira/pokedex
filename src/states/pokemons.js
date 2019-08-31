@@ -1,6 +1,5 @@
 const pokemons = {
   collection: {},
-  isFetched: false,
   selected: {}
 }
 

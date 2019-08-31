@@ -4,6 +4,7 @@ import useGlobal from '../../store'
 import Pokemon from '../pokemon/cmp-pokemon'
 import Search from '../search/cmp-search'
 import Modal from '../modal/cmp-modal'
+import Loader from 'react-loader'
 
 const Page = () => {
   const [globalState, globalActions] = useGlobal()
@@ -13,8 +14,8 @@ const Page = () => {
     error: null
   })
   const { searchString, pokemonsIds, error } = localState
-  const { modal, pokemons } = globalState
-  const { collection, isFetched } = pokemons
+  const { loaded, modal, pokemons } = globalState
+  const { collection } = pokemons
 
   useEffect(() => {
     globalActions.getPokemons()
@@ -75,11 +76,8 @@ const Page = () => {
         <Search onChange={handleSearch} value={searchString} />
       </div>
       {modal && <Modal />}
-      {isFetched ? (
-        <ul className="pokemons">{pokemonsToShow}</ul>
-      ) : (
-        <p>Loading...</p>
-      )}
+      <ul className="pokemons">{pokemonsToShow}</ul>
+      <Loader loaded={loaded} />
     </div>
   )
 }

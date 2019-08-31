@@ -1,3 +1,16 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html,
+body {
+  height: 100%;
+}
+
 body {
   background-color: #ccc;
   font-family: sans-serif;
@@ -6,7 +19,6 @@ body {
 }
 
 .page {
-  position: relative;
   text-align: center;
 }
 
@@ -81,7 +93,8 @@ body {
   }
 }
 
-.modal {
+.modal,
+.loader {
   position: fixed;
   top: 0;
   left: 0;

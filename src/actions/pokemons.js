@@ -14,8 +14,7 @@ export const setPokemons = (store, newPokemons) => {
           ...item
         }
       }
-    }, {}),
-    isFetched: true
+    }, {})
   }
   store.setState({ ...store.state, pokemons })
 }
@@ -33,11 +32,15 @@ export const setPokemon = (store, newPokemon) => {
 
 export const getPokemons = async store => {
   const limit = 784
+  store.actions.loaded(false)
   const [error, response] = await requester('GET', `pokemon/?limit=${limit}`)
   setPokemons(store, response.data.results)
+  store.actions.loaded(true)
 }
 
 export const getPokemon = async (store, id) => {
+  store.actions.loaded(false)
   const [error, response] = await requester('GET', `pokemon/${id}`)
   setPokemon(store, response.data)
+  store.actions.loaded(true)
 }
