@@ -1,6 +1,7 @@
 const pokemons = {
   collection: {},
-  isFetched: false
+  isFetched: false,
+  selected: {}
 }
 
 export default pokemons

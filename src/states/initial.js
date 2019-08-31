@@ -1,6 +1,7 @@
 import pokemons from './pokemons'
 
 const initialState = {
+  modal: false,
   pokemons
 }
 

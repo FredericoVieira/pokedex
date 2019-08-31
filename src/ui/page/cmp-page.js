@@ -3,6 +3,7 @@ import hardtack from 'hardtack'
 import useGlobal from '../../store'
 import Pokemon from '../pokemon/cmp-pokemon'
 import Search from '../search/cmp-search'
+import Modal from '../modal/cmp-modal'
 
 const Page = () => {
   const [globalState, globalActions] = useGlobal()
@@ -12,7 +13,8 @@ const Page = () => {
     error: null
   })
   const { searchString, pokemonsIds, error } = localState
-  const { collection, isFetched } = globalState.pokemons
+  const { modal, pokemons } = globalState
+  const { collection, isFetched } = pokemons
 
   useEffect(() => {
     globalActions.getPokemons()
@@ -32,7 +34,6 @@ const Page = () => {
 
   const handleSearch = event => {
     const value = event.currentTarget.value.toLowerCase().trim()
-    const { collection } = globalState
 
     hardtack.set('searchString', value, {
       maxAge: '31536000'
@@ -46,11 +47,9 @@ const Page = () => {
       })
     }
 
-    const pokemonsIds = Object.keys(collection).filter(pokemonId => {
-      const pokemon = collection[pokemonId]
-
-      return pokemon.name.includes(value)
-    })
+    const pokemonsIds = Object.keys(collection).filter(pokemonId =>
+      collection[pokemonId].name.includes(value)
+    )
 
     localSetState({
       ...localState,
@@ -59,7 +58,7 @@ const Page = () => {
     })
   }
 
-  const pokemons = pokemonsIds.map(pokemonId => {
+  const pokemonsToShow = pokemonsIds.map(pokemonId => {
     const pokemon = collection[pokemonId]
 
     return (
@@ -75,7 +74,12 @@ const Page = () => {
       <div className="page__search">
         <Search onChange={handleSearch} value={searchString} />
       </div>
-      {isFetched ? <ul className="pokemons">{pokemons}</ul> : <p>Loading...</p>}
+      {modal && <Modal />}
+      {isFetched ? (
+        <ul className="pokemons">{pokemonsToShow}</ul>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   )
 }
