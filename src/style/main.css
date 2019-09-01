@@ -12,7 +12,7 @@ body {
 }
 
 body {
-  background-color: #ccc;
+  background-color: #fff;
   font-family: sans-serif;
   margin: 0;
   padding: 0;
@@ -48,8 +48,10 @@ body {
   position: relative;
   z-index: 2;
   overflow: hidden;
-  background-color: #eee;
+  background-color: #fff;
   cursor: pointer;
+  border-radius: 20%;
+  border: 1px solid;
 }
 
 .pokemon__sprite {
@@ -61,7 +63,7 @@ body {
   z-index: 1;
   border: none;
   background-color: transparent;
-  background-position: center center;
+  background-position: 50% 20%;
   background-repeat: no-repeat;
 }
 
@@ -78,11 +80,16 @@ body {
   left: 0;
   z-index: 20;
   margin: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
+  background-color: #ff0911ad;
+  color: #000;
   text-align: center;
-  font-size: 14px;
   pointer-events: none;
+  font-size: 15px;
+  font-family: monospace;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  padding: 15px;
 }
 
 @media (min-width: 992px) {
@@ -107,11 +114,12 @@ body {
 .modal__main {
   position: fixed;
   background: white;
-  width: 80%;
+  width: 50%;
   height: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border-radius: 10px;
 }
 
 .display-block {
