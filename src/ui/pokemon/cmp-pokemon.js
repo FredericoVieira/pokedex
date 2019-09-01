@@ -1,6 +1,6 @@
 import React from 'react'
 import useGlobal from '../../store'
-import LazyLoad from 'react-lazyload'
+import LazyLoad from 'react-lazy-load'
 
 const Pokemon = ({ pokemon }) => {
   const [, globalActions] = useGlobal()
@@ -18,8 +18,8 @@ const Pokemon = ({ pokemon }) => {
             }.png`})`
           }}
         />
-        <p className="pokemon__name">{pokemon.name}</p>
       </LazyLoad>
+      <p className="pokemon__name">{pokemon.name}</p>
     </div>
   )
 }

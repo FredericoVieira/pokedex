@@ -4,7 +4,14 @@ import typesColors from '../../utils/typesColors'
 
 const Modal = () => {
   const [globalState, globalActions] = useGlobal()
-  const { id, name, types, height, weight } = globalState.pokemons.selected
+  const {
+    id,
+    name,
+    types,
+    abilities,
+    height,
+    weight
+  } = globalState.pokemons.selected
 
   let arrayTypes = []
   if (types) arrayTypes = types.map(type => type.type.name)
@@ -19,6 +26,9 @@ const Modal = () => {
       borderRightColor: typesColors[arrayTypes[1]],
       borderTopColor: typesColors[arrayTypes[1]]
     }
+
+  let arrayAbilities = []
+  if (abilities) arrayAbilities = abilities.map(ability => ability.ability.name)
 
   return (
     <div className="modal">
@@ -37,6 +47,12 @@ const Modal = () => {
           <span className="modal__list-item--attribute">Types: </span>
           <span className="modal__list-item--capitalize">
             {arrayTypes.join(', ')}
+          </span>
+        </li>
+        <li className="modal__list-item">
+          <span className="modal__list-item--attribute">Abilities: </span>
+          <span className="modal__list-item--capitalize">
+            {arrayAbilities.join(', ')}
           </span>
         </li>
         <li className="modal__list-item">
