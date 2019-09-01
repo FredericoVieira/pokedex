@@ -77,7 +77,7 @@ const Page = () => {
       </div>
       {modal && <Modal />}
       <ul className="pokemons">{pokemonsToShow}</ul>
-      <Loader loaded={loaded} />
+      <Loader loaded={loaded} color="white" />
     </div>
   )
 }
