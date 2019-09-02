@@ -33,14 +33,16 @@ export const setPokemon = (store, newPokemon) => {
 export const getPokemons = async store => {
   const limit = 784
   store.actions.loaded(false)
-  const [error, response] = await requester('GET', `pokemon/?limit=${limit}`)
-  setPokemons(store, response.data.results)
+  const [error, response] = await requester('GET', `pokemonaa/?limit=${limit}`)
+  if (error) store.actions.error(error)
+  else setPokemons(store, response.data.results)
   store.actions.loaded(true)
 }
 
 export const getPokemon = async (store, id) => {
   store.actions.loaded(false)
   const [error, response] = await requester('GET', `pokemon/${id}`)
-  setPokemon(store, response.data)
+  if (error) setPokemon(store, response.data)
+  else setPokemons(store, response.data.results)
   store.actions.loaded(true)
 }

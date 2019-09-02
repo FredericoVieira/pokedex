@@ -4,7 +4,6 @@ import useGlobal from '../../../store'
 import Page from '../cmp-page'
 import Search from '../../search/cmp-search'
 import Loader from 'react-loader'
-import { act } from 'react-dom/test-utils'
 
 describe('Tests for <Page />', () => {
   it('renders page without crashing', () => {

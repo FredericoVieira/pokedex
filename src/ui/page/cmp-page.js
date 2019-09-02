@@ -10,11 +10,10 @@ const Page = () => {
   const [globalState, globalActions] = useGlobal()
   const [localState, localSetState] = useState({
     searchString: '',
-    pokemonsIds: [],
-    error: null
+    pokemonsIds: []
   })
-  const { searchString, pokemonsIds, error } = localState
-  const { loaded, modal, pokemons } = globalState
+  const { searchString, pokemonsIds } = localState
+  const { error, loaded, modal, pokemons } = globalState
   const { collection } = pokemons
 
   useEffect(() => {
@@ -69,12 +68,26 @@ const Page = () => {
     )
   })
 
+  const handleError = () => (
+    <section className="page-error">
+      <div className="page-error__box">
+        <span className="page-error__box--status">{error.response.status}</span>
+        <span className="page-error__box--status-text">
+          {`: ${error.response.data}`}
+        </span>
+        <p>Whoops! Something went wrong!</p>
+        <hr className="page-error__box--line" />
+        <p>There was an error loading the pokedex.</p>
+      </div>
+    </section>
+  )
+
   return (
     <div className="page">
-      {error && <div className="page__error">{error}</div>}
       <div className="page__search">
         <Search onChange={handleSearch} value={searchString} />
       </div>
+      {error && handleError()}
       {modal && <Modal />}
       <ul className="pokemons">{pokemonsToShow}</ul>
       <Loader loaded={loaded} color="white" />
