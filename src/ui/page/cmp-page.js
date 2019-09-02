@@ -63,7 +63,7 @@ const Page = () => {
     const pokemon = collection[pokemonId]
 
     return (
-      <li className="pokemons__item" key={pokemon.id}>
+      <li key={pokemon.id} className="pokemons__item">
         <Pokemon pokemon={pokemon} />
       </li>
     )

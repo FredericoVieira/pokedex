@@ -40,8 +40,8 @@ const Modal = () => {
         />
         <li className="modal__list-item">
           <span className="modal__list-item--attribute">Name: </span>
-          <span className="modal__list-item--capitalize">{name} </span>
-          {`(#${id})`}
+          <span className="modal__list-item--capitalize">{name}</span>
+          {` (#${id})`}
         </li>
         <li className="modal__list-item">
           <span className="modal__list-item--attribute">Types: </span>
@@ -57,7 +57,8 @@ const Modal = () => {
         </li>
         <li className="modal__list-item">
           <span className="modal__list-item--attribute">Height: </span>
-          {height} /{' '}
+          {height}
+          {' / '}
           <span className="modal__list-item--attribute">Weight: </span>
           {weight}
         </li>
