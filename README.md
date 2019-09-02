@@ -10,6 +10,12 @@ In the project directory, install dependencies:
 npm install
 ```
 
+### Tests
+
+```
+npm test
+```
+
 ### Development
 
 ```
