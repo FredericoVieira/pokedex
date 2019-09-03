@@ -3,8 +3,6 @@ import { shallow } from 'enzyme'
 import useGlobal from '../../../store'
 import Modal from '../cmp-modal'
 
-jest.mock('axios')
-
 describe('Tests for <Modal />', () => {
   it('renders modal without crashing', () => {
     shallow(<Modal />)

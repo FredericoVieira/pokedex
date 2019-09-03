@@ -35,6 +35,7 @@ const Modal = () => {
       <section className="modal__main">
         <img
           className="modal__main--image"
+          alt={name}
           style={imageStyle}
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
         />

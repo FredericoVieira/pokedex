@@ -1,1 +1,2 @@
-export const error = (store, error) => store.setState({ ...store.state, error })
+export const setError = (store, error) =>
+  store.setState({ ...store.state, error })
