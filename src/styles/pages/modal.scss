@@ -1,0 +1,59 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $color-black-transparent;
+  z-index: 3;
+}
+
+@media (max-width: 992px) {
+  .modal__main {
+    width: 50% !important;
+  }
+}
+
+.modal__main {
+  position: fixed;
+  background: $color-white;
+  width: 30%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+
+.modal__main--image {
+  height: 120px;
+  border: 5px dashed;
+  border-radius: 50%;
+  padding: 15px;
+  margin: 30px;
+  background-color: $background-color;
+}
+
+.modal__list-item {
+  display: block;
+  padding: 5px;
+}
+
+.modal__list-item--attribute {
+  font-weight: 600;
+}
+
+.modal__list-item--capitalize {
+  text-transform: capitalize;
+}
+
+.button {
+  background-color: $color-primary;
+  cursor: pointer;
+  border: 1px solid $color-white;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  margin: 30px;
+}

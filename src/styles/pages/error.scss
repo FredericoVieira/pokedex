@@ -1,0 +1,31 @@
+.page-error {
+  color: $color-gray-dark;
+  display: flex;
+  align-items: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  &__box {
+    font-size: 1.5rem;
+    margin-left: 7rem;
+    margin-bottom: 7rem;
+    font-weight: 500;
+
+    &--line {
+      border-top: 2px solid $color-primary;
+      margin: 1rem 0rem;
+    }
+
+    &--status {
+      font-size: 5rem;
+      color: $color-primary;
+    }
+
+    &--status-text {
+      font-size: 2rem;
+      color: $color-primary;
+    }
+  }
+}
